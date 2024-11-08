@@ -1,5 +1,7 @@
-name: deploy-react app
+name: deploy react app 
 on: push
+permissions:
+  contents: write
 jobs:
   deploy-react-app:
     runs-on: ubuntu-latest
@@ -7,18 +9,18 @@ jobs:
       - name: clone the repository
         uses: actions/checkout@v4
         
-      - name: npm install
+      - name: install npm packages
         run: npm install
-
+        
       - name: run npm
         run: npm run build
-      
-      - name: run test
+        
+      - name: test npm
         run: npm run test
-      - name: Deploy to github pages
+        
+      - name: deploy to github pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
-      
+          publish_dir: ./build
       
